@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Local apps goes after this line
+    'workatolist.channels',
 ]
 
 MIDDLEWARE_CLASSES = [
