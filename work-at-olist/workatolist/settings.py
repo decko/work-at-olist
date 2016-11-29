@@ -1,19 +1,25 @@
 import os
 
+import dj_database_url
+
+from prettyconf import config
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Set the CONFIG_PATH and make prettyconf use it to find .env
+CONFIG_PATH = os.path.join(BASE_DIR, 'workatolist')
+config.starting_path = CONFIG_PATH
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
+# Recover SECRET_KEY from .env
+SECRET_KEY = config('SECRET_KEY', default='SecretAgentMan')
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ld7s4bcrf)mso_*y^mnnfrr=fh&)4gs$*e%-acjxw5nyulpioz'
+# Recover DEBUG from .env and if nothing is set, make it as False
+DEBUG = config('DEBUG', default=False, cast=config.boolean)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# Recover ALLOWED_HOSTS list from .env
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=config.list)
 
 
 # Application definition
@@ -63,11 +69,13 @@ WSGI_APPLICATION = 'workatolist.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# Recover DATABASE_URL from .env and set a default if nothing is found
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL',
+                       default="postgres://olist:olist321456@localhost/olist_db"
+                      )
+    )
 }
 
 
