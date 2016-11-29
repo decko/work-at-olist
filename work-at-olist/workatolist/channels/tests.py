@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
+from .models import Channel
+
 
 class ChannelsTest(APITestCase):
     def test_channels_endpoint_returning_200_OK(self):
@@ -18,3 +20,12 @@ class ChannelsTest(APITestCase):
         url = resolve('/channels/')
 
         self.assertEqual(url.view_name, 'channels')
+
+    def test_channels_endpoint_return_channels(self):
+
+        Channel.objects.create(name="SuperMarketplace")
+
+        url = reverse('channels')
+        response = self.client.get(url)
+
+        self.assertContains(response, "SuperMarketplace")
