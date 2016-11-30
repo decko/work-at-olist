@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -20,6 +22,6 @@ class ChannelsView(APIView):
 class ChannelsDetailView(APIView):
 
     def get(self, request, uid):
-        channel = Channel.objects.get(uid=uid)
+        channel = get_object_or_404(Channel, uid=uid)
 
         return Response((channel.uid, channel.name))
