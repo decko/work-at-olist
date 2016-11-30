@@ -34,7 +34,7 @@ class ChannelsTest(APITestCase):
 
         channel = Channel.objects.create(name="SuperMarketplace")
 
-        url = reverse('channels', kwargs={'pk': channel.uid})
+        url = reverse('channels-detail', kwargs={'uid': channel.uid})
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
