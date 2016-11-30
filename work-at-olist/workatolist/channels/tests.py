@@ -29,3 +29,12 @@ class ChannelsTest(APITestCase):
         response = self.client.get(url)
 
         self.assertContains(response, "SuperMarketplace")
+
+    def test_returning_a_channel_from_endpoint(self):
+
+        channel = Channel.objects.create(name="SuperMarketplace")
+
+        url = reverse('channels', kwargs={'pk': channel.uid})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
