@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Local apps goes after this line
     'workatolist.channels',
+    'workatolist.categories',
 ]
 
 MIDDLEWARE_CLASSES = [
