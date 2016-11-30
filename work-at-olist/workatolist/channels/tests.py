@@ -21,7 +21,7 @@ class ChannelsTest(APITestCase):
 
         self.assertEqual(url.view_name, 'channels')
 
-    def test_channels_endpoint_return_channels(self):
+    def test_channels_endpoint_return_channels_list(self):
 
         Channel.objects.create(name="SuperMarketplace")
 
