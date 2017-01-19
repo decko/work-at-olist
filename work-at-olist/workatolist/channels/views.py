@@ -12,7 +12,8 @@ class ChannelsView(APIView):
         channels = [
             {
                 'uid': channel.uid,
-                'name': channel.name
+                'name': channel.name,
+                'slug': channel.slug
             }
             for channel in Channel.objects.all()
         ]
@@ -21,7 +22,10 @@ class ChannelsView(APIView):
 
 class ChannelsDetailView(APIView):
 
-    def get(self, request, uid):
-        channel = get_object_or_404(Channel, uid=uid)
+    def get(self, request, uid=None, slug=None):
+        if uid:
+            channel = get_object_or_404(Channel, uid=uid)
+        elif slug:
+            channel = get_object_or_404(Channel, slug=slug)
 
         return Response((channel.uid, channel.name))

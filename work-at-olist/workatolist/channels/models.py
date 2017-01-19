@@ -22,3 +22,5 @@ class Channel(UniqueIdentifier):
     """
 
     name = models.CharField('Marketplace name', max_length=100)
+    slug = models.SlugField('Unique marketplace name', unique=True,
+                            default='unnamed')
