@@ -28,4 +28,4 @@ class ChannelsDetailView(APIView):
         elif slug:
             channel = get_object_or_404(Channel, slug=slug)
 
-        return Response((channel.uid, channel.name))
+        return Response((channel.uid, channel.name, channel.slug))
