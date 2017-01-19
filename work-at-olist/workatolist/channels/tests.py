@@ -58,6 +58,15 @@ class ChannelsTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_return_channel_with_slug_information(self):
+
+        channel = Channel.objects.create(name="SuperMarketplace")
+
+        url = reverse('channels-slug-detail', kwargs={'slug': channel.slug})
+        response = self.client.get(url)
+
+        self.assertContains(response, channel.slug)
+
     def test_return_404_channel_not_found(self):
 
         import uuid
