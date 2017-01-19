@@ -49,12 +49,21 @@ class ChannelsTest(APITestCase):
         self.assertContains(response, channel.uid)
         self.assertContains(response, channel.name)
 
+    def test_return_a_channel_using_slugs(self):
+
+        channel = Channel.objects.create(name="SuperMarketplace")
+
+        url = reverse('channels-slug-detail', kwargs={'slug': channel.slug})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_return_404_channel_not_found(self):
 
         import uuid
         fake_uid = uuid.uuid4()
 
-        channel = Channel.objects.create(name="SuperMarketplace")
+        Channel.objects.create(name="SuperMarketplace")
 
         url = reverse('channels-detail', kwargs={'uid': fake_uid})
         response = self.client.get(url)
