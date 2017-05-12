@@ -1,4 +1,5 @@
 from django.core.urlresolvers import resolve
+from django.db.utils import IntegrityError
 
 from rest_framework import status
 from rest_framework.reverse import reverse
@@ -78,3 +79,10 @@ class ChannelsTest(APITestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_uniqueness_of_a_slug(self):
+
+        Channel.objects.create(name="SuperMarketplace")
+
+        with self.assertRaises(IntegrityError):
+            Channel.objects.create(name="SuperMarketplace")
