@@ -54,7 +54,7 @@ class ChannelsTest(APITestCase):
 
         channel = Channel.objects.create(name="SuperMarketplace")
 
-        url = reverse('channels-slug-detail', kwargs={'slug': channel.slug})
+        url = reverse('channels:slug-detail', kwargs={'slug': channel.slug})
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -63,7 +63,7 @@ class ChannelsTest(APITestCase):
 
         channel = Channel.objects.create(name="SuperMarketplace")
 
-        url = reverse('channels-slug-detail', kwargs={'slug': channel.slug})
+        url = reverse('channels:slug-detail', kwargs={'slug': channel.slug})
         response = self.client.get(url)
 
         self.assertContains(response, channel.slug)
