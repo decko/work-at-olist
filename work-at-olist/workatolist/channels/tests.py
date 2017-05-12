@@ -11,7 +11,7 @@ from .models import Channel
 class ChannelsTest(APITestCase):
     def test_channels_endpoint_returning_200_OK(self):
 
-        url = reverse('channels')
+        url = reverse('channels:list')
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -20,13 +20,13 @@ class ChannelsTest(APITestCase):
 
         url = resolve('/channels/')
 
-        self.assertEqual(url.view_name, 'channels')
+        self.assertEqual(url.view_name, 'channels:list')
 
     def test_channels_endpoint_return_channels_list(self):
 
         Channel.objects.create(name="SuperMarketplace")
 
-        url = reverse('channels')
+        url = reverse('channels:list')
         response = self.client.get(url)
 
         self.assertContains(response, "SuperMarketplace")
