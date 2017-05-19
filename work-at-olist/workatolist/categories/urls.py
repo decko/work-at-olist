@@ -1,9 +1,10 @@
 from django.conf.urls import url
 
-from django.http import HttpResponse
-
 from rest_framework import status
+from rest_framework.response import Response
+
+from .views import return_list
 
 urlpatterns = [
-    url(r'^/$', lambda x: HttpResponse(status.HTTP_200_OK), name='list'),
+    url(r'^/$', return_list, name='list'),
 ]
