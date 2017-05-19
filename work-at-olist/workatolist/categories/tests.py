@@ -2,6 +2,8 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
+from .models import Category
+
 
 class CategoriesTest(APITestCase):
     """
@@ -27,3 +29,14 @@ class CategoriesTest(APITestCase):
         reversed = reverse('categories:list')
 
         self.assertEqual(url, reversed)
+
+    def test_returning_a_list_from_endpoint(self):
+        """
+        Test returning a list from the endpoint
+        """
+
+        url = reverse('categories:list')
+
+        response = self.client.get(url)
+
+        self.assertIsInstance(response.data, list)
