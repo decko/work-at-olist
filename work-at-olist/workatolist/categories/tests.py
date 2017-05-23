@@ -40,3 +40,17 @@ class CategoriesTest(APITestCase):
         response = self.client.get(url)
 
         self.assertIsInstance(response.data, list)
+
+    def test_returning_a_list_with_some_categories_from_endpoint(self):
+        """
+        Test returning some values inside a list as response from endpoint
+        request
+        """
+
+        categories = ('Games', 'Computers', 'Books')
+        url = reverse('categories:list')
+
+        response = self.client.get(url)
+
+        for category in categories:
+            self.assertContains(response, category, status_code=200)
