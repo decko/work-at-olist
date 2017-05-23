@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
@@ -48,6 +50,22 @@ class CategoriesTest(APITestCase):
         """
 
         categories = ('Games', 'Computers', 'Books')
+        url = reverse('categories:list')
+
+        response = self.client.get(url)
+
+        for category in categories:
+            self.assertContains(response, category, status_code=200)
+
+    def test_returning_a_list_with_some_persisted_categories(self):
+        """
+        Test return all categories persisted in the database
+        """
+
+        categories = ('Games', 'Computers', 'Books', 'Power Tools')
+        for category in categories:
+            Category.objects.create(name=category)
+
         url = reverse('categories:list')
 
         response = self.client.get(url)
