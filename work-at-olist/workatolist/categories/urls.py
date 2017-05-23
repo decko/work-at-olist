@@ -6,5 +6,5 @@ from rest_framework.response import Response
 from .views import return_list
 
 urlpatterns = [
-    url(r'^/$', return_list, name='list'),
+    url(r'^$', return_list, name='list'),
 ]
