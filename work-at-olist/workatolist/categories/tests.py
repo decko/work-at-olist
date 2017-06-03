@@ -50,6 +50,9 @@ class CategoriesTest(APITestCase):
         """
 
         categories = ('Games', 'Computers', 'Books')
+        for category in categories:
+            Category.objects.create(name=category)
+
         url = reverse('categories:list')
 
         response = self.client.get(url)
